@@ -1,77 +1,121 @@
-import { useEffect, useState } from "react";
-import "./index.css";
+import { useState } from 'react'
+import reactLogo from './assets/react.svg'
+import viteLogo from './assets/vite.svg'
+import heroImg from './assets/hero.png'
+import './App.css'
 
 function App() {
-  const [cursor, setCursor] = useState({ x: 0, y: 0 });
-
-  useEffect(() => {
-    const moveCursor = (e) => {
-      setCursor({ x: e.clientX, y: e.clientY });
-    };
-    window.addEventListener("mousemove", moveCursor);
-    return () => window.removeEventListener("mousemove", moveCursor);
-  }, []);
+  const [count, setCount] = useState(0)
 
   return (
-    <div className="relative h-screen w-full bg-black overflow-hidden text-white font-body">
+    <>
+      <section id="center">
+        <div className="hero">
+          <img src={heroImg} className="base" width="170" height="179" alt="" />
+          <img src={reactLogo} className="framework" alt="React logo" />
+          <img src={viteLogo} className="vite" alt="Vite logo" />
+        </div>
+        <div>
+          <h1>Get started</h1>
+          <p>
+            Edit <code>src/App.jsx</code> and save to test <code>HMR</code>
+          </p>
+        </div>
+        <button
+          className="counter"
+          onClick={() => setCount((count) => count + 1)}
+        >
+          Count is {count}
+        </button>
+      </section>
 
-      {/* Cursor Glow */}
-      <div
-        className="pointer-events-none fixed w-[300px] h-[300px] bg-emerald-400/10 blur-[120px] rounded-full z-50"
-        style={{
-          left: cursor.x - 150,
-          top: cursor.y - 150,
-        }}
-      />
+      <div className="ticks"></div>
 
-      {/* Background Glow */}
-      <div className="absolute inset-0">
-        <div className="absolute w-[500px] h-[500px] bg-emerald-500/10 blur-[150px] rounded-full top-[-100px] left-[-100px] animate-floatSlow"></div>
-        <div className="absolute w-[400px] h-[400px] bg-green-400/10 blur-[120px] rounded-full bottom-[-100px] right-[-100px] animate-floatMedium"></div>
-      </div>
+      <section id="next-steps">
+        <div id="docs">
+          <svg className="icon" role="presentation" aria-hidden="true">
+            <use href="/icons.svg#documentation-icon"></use>
+          </svg>
+          <h2>Documentation</h2>
+          <p>Your questions, answered</p>
+          <ul>
+            <li>
+              <a href="https://vite.dev/" target="_blank">
+                <img className="logo" src={viteLogo} alt="" />
+                Explore Vite
+              </a>
+            </li>
+            <li>
+              <a href="https://react.dev/" target="_blank">
+                <img className="button-icon" src={reactLogo} alt="" />
+                Learn more
+              </a>
+            </li>
+          </ul>
+        </div>
+        <div id="social">
+          <svg className="icon" role="presentation" aria-hidden="true">
+            <use href="/icons.svg#social-icon"></use>
+          </svg>
+          <h2>Connect with us</h2>
+          <p>Join the Vite community</p>
+          <ul>
+            <li>
+              <a href="https://github.com/vitejs/vite" target="_blank">
+                <svg
+                  className="button-icon"
+                  role="presentation"
+                  aria-hidden="true"
+                >
+                  <use href="/icons.svg#github-icon"></use>
+                </svg>
+                GitHub
+              </a>
+            </li>
+            <li>
+              <a href="https://chat.vite.dev/" target="_blank">
+                <svg
+                  className="button-icon"
+                  role="presentation"
+                  aria-hidden="true"
+                >
+                  <use href="/icons.svg#discord-icon"></use>
+                </svg>
+                Discord
+              </a>
+            </li>
+            <li>
+              <a href="https://x.com/vite_js" target="_blank">
+                <svg
+                  className="button-icon"
+                  role="presentation"
+                  aria-hidden="true"
+                >
+                  <use href="/icons.svg#x-icon"></use>
+                </svg>
+                X.com
+              </a>
+            </li>
+            <li>
+              <a href="https://bsky.app/profile/vite.dev" target="_blank">
+                <svg
+                  className="button-icon"
+                  role="presentation"
+                  aria-hidden="true"
+                >
+                  <use href="/icons.svg#bluesky-icon"></use>
+                </svg>
+                Bluesky
+              </a>
+            </li>
+          </ul>
+        </div>
+      </section>
 
-      {/* Circuit Background */}
-      <div className="absolute inset-0 opacity-30">
-        <svg className="w-full h-full" viewBox="0 0 800 600" preserveAspectRatio="none">
-          <g stroke="rgba(16,185,129,0.25)" strokeWidth="1.2" fill="none">
-
-            {/* Horizontal paths */}
-            <path d="M0 100 H200 L250 150 H400 L450 100 H800" />
-            <path d="M0 300 H150 L200 250 H350 L400 300 H800" />
-            <path d="M0 500 H300 L350 450 H600 L650 500 H800" />
-
-            {/* Vertical paths */}
-            <path d="M100 0 V150 L150 200 V400 L100 450 V600" />
-            <path d="M400 0 V200 L450 250 V450 L400 500 V600" />
-            <path d="M700 0 V100 L650 150 V350 L700 400 V600" />
-
-            {/* Nodes */}
-            <circle cx="250" cy="150" r="3" fill="#34d399" />
-            <circle cx="200" cy="250" r="3" fill="#34d399" />
-            <circle cx="350" cy="450" r="3" fill="#34d399" />
-            <circle cx="150" cy="200" r="3" fill="#34d399" />
-            <circle cx="450" cy="250" r="3" fill="#34d399" />
-            <circle cx="650" cy="150" r="3" fill="#34d399" />
-
-          </g>
-        </svg>
-      </div>
-
-      {/* Main Content */}
-      <div className="relative z-10 flex flex-col items-center justify-center h-full text-center">
-
-        <h1 className="text-6xl md:text-7xl font-cyber tracking-widest text-transparent bg-clip-text bg-gradient-to-r from-emerald-300 to-green-500">
-          FRAUDGUARD
-        </h1>
-
-        <p className="mt-5 text-lg max-w-xl font-body bg-gradient-to-r from-emerald-200 to-gray-400 text-transparent bg-clip-text">
-          Intelligent AI shield protecting you from scams, phishing, and digital fraud in real-time.
-        </p>
-
-      </div>
-
-    </div>
-  );
+      <div className="ticks"></div>
+      <section id="spacer"></section>
+    </>
+  )
 }
 
-export default App;
+export default App
